@@ -51,7 +51,7 @@ on:
       - published
 
 concurrency:
-  group: ${{github.workflow}} - ${{github.ref}}
+  group: ${{github.workflow}} - ${{github.ref}}-${{ inputs.leg || github.event_name }}
   cancel-in-progress: true
 
 run-name: "Halo Workflow ${{ inputs.leg || 'push' }} ${{ inputs.racecar_run }}"
@@ -68,7 +68,7 @@ env:
 
 jobs:
   test:
-    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
