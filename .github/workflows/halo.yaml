@@ -89,7 +89,7 @@ jobs:
       - name: Check Halo
         run: ./gradlew clean check --configuration-cache --configuration-cache-problems=warn
       - name: Upload coverage reports to Codecov
-        if: github.repository == 'curiosity-tests/halo'
+        if: github.repository == 'halo-dev/halo'
         uses: codecov/codecov-action@v6
 
   build:
@@ -116,7 +116,7 @@ jobs:
       - name: Build Halo
         run: ./gradlew clean downloadPluginPresets build -x check --configuration-cache --configuration-cache-problems=warn
       - name: Upload Artifacts
-        if: github.repository == 'curiosity-tests/halo'
+        if: github.repository == 'halo-dev/halo'
         uses: actions/upload-artifact@v6
         with:
           name: halo-artifacts
@@ -148,7 +148,7 @@ jobs:
           name: halo-artifacts
           path: application/build/libs
       - name: Upload Artifacts
-        if: github.repository == 'curiosity-tests/halo'
+        if: github.repository == 'halo-dev/halo'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{ github.event.release.tag_name }} application/build/libs/*
